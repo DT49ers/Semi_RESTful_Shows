@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create</title>
+  <style type="text/css">
+    .nav-bar {
+      display: flex;
+      justify-content: space-between;
+    }
+    .main-container {
+      width: 315px;
+    }
+    .middle-container {
+      display: flex;
+    }
+    .middle-left-container {
+      display: flex;
+      flex-direction: column;
+      margin-right: 15px;
+      margin-bottom: 15px;
+    }
+    .middle-right-container {
+      display: flex;
+      flex-direction: column;
+    }
+    input {
+      width: 100%;
+    }
+    .btn {
+      margin-left: 150px;
+      margin-top: 20px;
+      box-shadow: 2px 5px black;
+    }
+  </style>
+</head>
+<body>
+  <div class="nav-bar">
+    <h1>Add a New Show</h1>
+    <a href="/shows">Go Back</a>
+  </div>
+
+  {% if messages %}
+  <ul class="messages">    
+      {% for message in messages %}    
+        <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>
+          {{ message }}
+        </li>    
+      {% endfor %}
+  </ul>
+  {% endif %}
+
+  <form action="/shows/create" method="POST">
+    {% csrf_token %}
+    <div class="main-container">
+      <div class="top-container">
+        <label for="title">Title</label><br>
+        <input type="text" name="title" id="title"><br><br>
+      </div>
+      <div class="middle-container">
+        <div class="middle-left-container">
+          <label for="network">Network</label>
+          <input type="text" name="network" id="network">
+        </div>
+        <div class="middle-right-container">
+          <label for="release_date">Release Date</label>
+          <input type="date" name="release_date" id="release_date">
+        </div>
+      </div>
+      <label for="description">Description</label><br>
+      <textarea name="description" id="description"></textarea>
+      <br>
+    </div>
+    <button type="submit" class="btn">Create</button>
+  </form>
+</body>
+</html>
